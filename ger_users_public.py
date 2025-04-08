@@ -51,7 +51,7 @@ if not st.session_state.logado:
     if st.button("Entrar"):
         if autenticar(cursor, login, senha):
             st.session_state.logado = True
-            st.rerun()
+            st.experimental_rerun()
         else:
             st.error("Login ou senha incorretos.")
     st.stop()
@@ -79,7 +79,7 @@ with st.form("form_add"):
         registrar_acao(cursor, "Adicionado", grupo, nome, login_u, email)
         conn.commit()
         st.success(f"Usuário {nome} adicionado!")
-        st.rerun()
+        st.experimental_rerun()
 
 # --- LISTAR USUÁRIOS ---
 st.subheader("📄 Lista de Usuários")
@@ -101,14 +101,14 @@ for idx, u in enumerate(usuarios_filtrados):
                     registrar_acao(cursor, "Editado", novo_grupo, novo_nome, novo_login, novo_email)
                     conn.commit()
                     st.success("Usuário editado com sucesso!")
-                    st.rerun()
+                    st.experimental_rerun()
     with col3:
         if st.button("🗑️ Excluir", key=f"excluir_{idx}"):
             excluir_usuario(cursor, u[2])
             registrar_acao(cursor, "Excluído", u[0], u[1], u[2], u[3])
             conn.commit()
             st.success("Usuário excluído.")
-            st.rerun()
+            st.experimental_rerun()
 
 # --- HISTÓRICO ---
 st.subheader("🕓 Histórico de Ações")
