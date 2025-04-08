@@ -3,7 +3,7 @@ import pandas as pd
 import sqlite3
 from datetime import datetime
 from utils import (
-    inicializar_banco, autenticar, obter_usuarios,
+    autenticar, obter_usuarios,
     adicionar_usuario, editar_usuario, excluir_usuario,
     registrar_acao, obter_historico
 )
@@ -14,6 +14,30 @@ st.set_page_config(page_title="Gerenciador de Usuários", layout="wide")
 
 conn = sqlite3.connect("database.db", check_same_thread=False)
 cursor = conn.cursor()
+
+def inicializar_banco(cursor):
+    """
+    Initializes the database with the required tables.
+    """
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS usuarios (
+        grupo TEXT,
+        nome TEXT,
+        login TEXT PRIMARY KEY,
+        email TEXT
+    )
+    """)
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS historico (
+        acao TEXT,
+        grupo TEXT,
+        nome TEXT,
+        login TEXT,
+        email TEXT,
+        timestamp TEXT
+    )
+    """)
+
 inicializar_banco(cursor)
 
 # --- LOGIN ---
