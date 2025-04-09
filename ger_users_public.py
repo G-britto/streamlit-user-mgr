@@ -51,7 +51,7 @@ if not st.session_state.logado:
     if st.button("Entrar"):
         if autenticar(cursor, login, senha):
             st.session_state.logado = True
-            st.experimental_set_query_params(logado="true")
+            st.set_query_params(logado="true")  # Substituído
             st.success("Login realizado com sucesso!")
             st.stop()
         else:
