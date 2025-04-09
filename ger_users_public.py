@@ -81,7 +81,7 @@ with st.form("form_add"):
         registrar_acao(cursor, "Adicionado", grupo, nome, login_u, email)
         conn.commit()
         st.success(f"Usuário {nome} adicionado!")
-        st.experimental_rerun()
+        st.stop()
 
 # --- LISTAR USUÁRIOS ---
 st.subheader("📄 Lista de Usuários")
